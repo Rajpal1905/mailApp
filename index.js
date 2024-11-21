@@ -42,5 +42,4 @@ app.listen(PORT,()=>{
 
 app.get('/',(req,res)=>{
     res.send('I love you Kake')
-    console.log('This is default route')
 })

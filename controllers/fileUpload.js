@@ -9,10 +9,8 @@ exports.localFileUpload = async (req, res) => {
         const file = req.files.file
 
         let path = __dirname + "/files/" + Date.now() + `.${file.name.split('.')[1]}`;// also going to add extension ' + '
-        console.log(path, "This is Path")
 
         file.mv(path, (err) => {
-            console.log(err);
         })
 
         res.json({
@@ -20,7 +18,7 @@ exports.localFileUpload = async (req, res) => {
             message: 'local File Uploaded successfully'
         })
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
 
@@ -45,10 +43,8 @@ exports.imageUpload = async (req, res) => {
     try {
         const { name, tags, email } = req.body;
 
-        console.log(name, tags, email,"   --->  This comes from body")
 
         const file = req.files.imageFile;
-        console.log(file)
 
         const supportedTypes = ["jpg", "jpeg", "png"];
 
@@ -69,7 +65,6 @@ exports.imageUpload = async (req, res) => {
 
 
         const response = await uploadFileToCloudinary(file, 'Codehelp')
-        console.log(response ,"Response")
 
         // now we have save the entry in db
         
@@ -99,11 +94,9 @@ exports.uploadVideo = async(req,res)=>{
         //fetching data from body
 
         const {name,tags,email} = req.body;
-        console.log("This comes from body",name,tags,email)
 
         const file = req.files.videoFile
 
-        console.log(file)
 
         const supportedTypes = ["mp4","mov"]
 
@@ -119,7 +112,6 @@ exports.uploadVideo = async(req,res)=>{
         // sending data to clooudinary
         const response = await uploadFileToCloudinary(file,"Codehelp")
 
-        console.log(response)
 
         // save data into Db
         const fileData = await File.create ({
